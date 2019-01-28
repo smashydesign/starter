@@ -59,7 +59,6 @@ typings/
 
 # next.js build output
 .next
-<<<<<<< HEAD
 
 ### macOS ###
 # General
@@ -159,5 +158,3 @@ Windows shortcuts
 
 # project related
 dist/
-=======
->>>>>>> 4a570253bf971cd34a02978fdcb776f1c874cd52
