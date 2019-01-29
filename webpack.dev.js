@@ -8,9 +8,21 @@ const devConfig = {
         './src/scss/main.scss'
     ],
     output: {
-        path: path.resolve(__dirname, 'dist/'),
+        path: path.resolve(__dirname, 'dist'),
         filename: 'js/main.bundle.js', 
+        publicPath: '/dist',
     },
+    devServer: {
+        compress: false,
+        port: 3000,
+        contentBase: path.join(__dirname, 'dist'),
+        overlay: true,
+        publicPath: '/dist',
+        watchContentBase: true
+    },
+    watchOptions: {
+        poll: true
+      },
     module: {
         rules: [
             {
