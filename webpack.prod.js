@@ -2,30 +2,17 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-const devConfig = {
+const prodConfig = {
     entry: [
         './src/js/main.js',
         './src/scss/main.scss',
         './src/index.pug',
-        './src/partials/header.pug',
     ],
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'js/main.bundle.js', 
-        //publicPath: '/dist',
+        filename: 'js/main.bundle.[contenthash].js', 
+        //publicPath: './',
     },
-    devtool: "source-map",
-    devServer: {
-        compress: false,
-        port: 3000,
-        contentBase: path.join(__dirname, 'dist'),
-        overlay: true,
-        //publicPath: '/dist',
-        watchContentBase: true
-    },
-    watchOptions: {
-        poll: true
-      },
     module: {
         rules: [
             {
@@ -50,32 +37,12 @@ const devConfig = {
                     {
                         loader: "url-loader",
                         options: {
-                            name: "img/[name].[ext]",
+                            name: "img/[name].[contenthash].[ext]",
                             limit: 10000
                         }
                     },
                     {
-                        loader: "img-loader",
-                        options: {
-                            plugins: [
-                                require('imagemin-gifsicle')({
-                                    interlaced: false
-                                }),
-                                require('imagemin-mozjpeg')({
-                                    progressive: true,
-                                    arithmetic: false
-                                }),
-                                require('imagemin-pngquant')({
-                                    quality: [0.7, 1]
-                                }),
-                                require('imagemin-svgo')({
-                                    plugins: [
-                                        { removeTitle: true },
-                                        { convertPathData: false }
-                                    ]
-                                })
-                            ]
-                        }
+                        loader: "img-loader"
                     }
                 ]
             },
@@ -85,7 +52,7 @@ const devConfig = {
                     {
                         loader: 'file-loader',
                         options: {
-                            outputPath: "font"
+                            name: 'font/[name].[contenthash].[ext]',
                         }
                     }
                 ]
@@ -93,7 +60,7 @@ const devConfig = {
             {
                 test: /\.scss$/,
                 use: [
-                    "style-loader", //MiniCssExtractPlugin.loader,
+                    MiniCssExtractPlugin.loader,
                     "css-loader",
                     "postcss-loader",
                     "sass-loader"
@@ -102,7 +69,12 @@ const devConfig = {
             {
                 test: /\.pug$/,
                 use: [
-                    "pug-loader",
+                    {
+                        loader: "pug-loader",
+                        options: {
+                            pretty: false
+                        }
+                    }
                 ]
             }
         ]
@@ -117,6 +89,6 @@ const devConfig = {
             chunkFileName: "[id].css"
         })
     ]
-};
+}
 
-module.exports = devConfig;
+module.exports = prodConfig;
