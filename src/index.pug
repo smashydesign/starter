@@ -5,7 +5,7 @@ html(lang='en')
     title webpack 4 quickstart with pug
   body
     include partials/header.pug
-    #app(style=`background:url(${require("./img/code.png")}) no-repeat center`)
+    #app(style='background:url(' + require("./img/code.png") + ') no-repeat center')
       | this is app background 34
     #img-bg
     img(src=require("./img/small-image.png"))

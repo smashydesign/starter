@@ -45,13 +45,13 @@ const devConfig = {
                 }]
             },
             {
-                test: /\.(png|jpe?g|gif|svg|ico)/i,
+                test: /\.(png|jpe?g|gif|svg|ico)$/i,
                 use: [
                     {
                         loader: "url-loader",
                         options: {
                             name: "img/[name].[ext]",
-                            limit: 10000
+                            limit: 1024 * 10
                         }
                     },
                     {
@@ -116,7 +116,10 @@ const devConfig = {
             filename: "css/[name].css",
             chunkFileName: "[id].css"
         })
-    ]
+    ],
+    optimization: {
+        minimize: false
+    }
 };
 
 module.exports = devConfig;

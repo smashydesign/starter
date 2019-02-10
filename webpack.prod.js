@@ -1,6 +1,10 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CssUrlRelativePlugin = require('css-url-relative-plugin')
 
 const prodConfig = {
     entry: [
@@ -10,7 +14,7 @@ const prodConfig = {
     ],
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'js/main.bundle.[contenthash].js', 
+        filename: 'js/main.bundle.[hash:7].js', 
         //publicPath: './',
     },
     module: {
@@ -32,18 +36,18 @@ const prodConfig = {
                 }]
             },
             {
-                test: /\.(png|jpe?g|gif|svg|ico)/i,
+                test: /\.(png|jpe?g|gif|svg|ico)$/i,
                 use: [
                     {
                         loader: "url-loader",
                         options: {
-                            name: "img/[name].[contenthash].[ext]",
-                            limit: 10000
+                            name: "img/[name].[hash:7].[ext]",
+                            limit: 1024 * 10
                         }
                     },
                     {
-                        loader: "img-loader"
-                    }
+                        loader: "img-loader",
+                    },
                 ]
             },
             {
@@ -52,7 +56,7 @@ const prodConfig = {
                     {
                         loader: 'file-loader',
                         options: {
-                            name: 'font/[name].[contenthash].[ext]',
+                            name: 'font/[name].[hash:7].[ext]',
                         }
                     }
                 ]
@@ -79,7 +83,11 @@ const prodConfig = {
             }
         ]
     },
-    plugins: [
+    plugins: [ 
+        new CleanWebpackPlugin(['dist'],{
+            root: path.resolve(__dirname)
+        }),
+        new CssUrlRelativePlugin(),
         new HtmlWebpackPlugin({
             template: "./src/index.pug",
             filename: "./index.html"
@@ -87,8 +95,22 @@ const prodConfig = {
         new MiniCssExtractPlugin({
             filename: "css/[name].css",
             chunkFileName: "[id].css"
-        })
-    ]
+        }),
+    ],
+    optimization: {
+        minimizer: [
+            new UglifyJsPlugin({
+                cache: true,
+                parallel: true,
+                sourceMap: true // set to true if you want JS source maps
+              }),
+            new OptimizeCSSAssetsPlugin({
+                cssProcessorOptions: {
+                    sourcemap: true
+                }
+            })
+        ]
+    }
 }
 
 module.exports = prodConfig;
