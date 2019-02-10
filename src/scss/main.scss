@@ -1,21 +1,22 @@
 body {
-    background: green;
+  background: green;
 }
 
 $color-orange: #f98a09;
+
 #app {
-  background: $color-orange; 
+  background: $color-orange;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  font-family: 'robotolight';
+  font-family: "robotolight", serif;
   font-size: 20px;
 }
 
 #img-bg {
-  background-image: url('../img/svg-big-img.svg');
+  background-image: url("../img/svg-big-img.svg");
   background-repeat: no-repeat;
   width: 100%;
   height: 50px;
@@ -23,11 +24,12 @@ $color-orange: #f98a09;
 }
 
 @font-face {
-  font-family: 'robotolight';
-  src: url('../font/Roboto-Light-webfont.eot');
-  src: url('../font/Roboto-Light-webfont.eot?#iefix') format('embeddeed-opentype'),
-      url('../font/Roboto-Light-webfont.woff') format('woff'),
-      url('../font/Roboto-Light-webfont.ttf') format('truetype');
+  font-family: "robotolight";
+  src: url("../font/Roboto-Light-webfont.eot");
+  src:
+    url("../font/Roboto-Light-webfont.eot?#iefix") format("embeddeed-opentype"),
+    url("../font/Roboto-Light-webfont.woff") format("woff"),
+    url("../font/Roboto-Light-webfont.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }

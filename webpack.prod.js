@@ -4,8 +4,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const CssUrlRelativePlugin = require('css-url-relative-plugin')
-
+const CssUrlRelativePlugin = require('css-url-relative-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const prodConfig = {
     entry: [
         './src/js/main.js',
@@ -24,6 +24,8 @@ const prodConfig = {
                 exclude: /node_modules/,
                 use: [{
                     loader: "babel-loader"
+                },{
+                    loader: "eslint-loader"
                 }]
             },
             {
@@ -87,6 +89,10 @@ const prodConfig = {
         new CleanWebpackPlugin(['dist'],{
             root: path.resolve(__dirname)
         }),
+        new CopyWebpackPlugin([{
+            from: path.resolve(__dirname, 'src/misc'),
+            to: path.resolve(__dirname, 'dist/misc'),
+        }]),
         new CssUrlRelativePlugin(),
         new HtmlWebpackPlugin({
             template: "./src/index.pug",
@@ -96,6 +102,7 @@ const prodConfig = {
             filename: "css/[name].css",
             chunkFileName: "[id].css"
         }),
+        new StyleLintPlugin(),
     ],
     optimization: {
         minimizer: [
