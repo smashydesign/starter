@@ -2,13 +2,12 @@ doctype html
 html(lang='en')
   head
     meta(charset='utf-8')
-    title webpack 4 quickstart with pug
+    title Smashy Starter - Webpack for template building
   body
     include partials/header.pug
-    #app(style='background:url(' + require("./img/code.png") + ') no-repeat center')
-      | this is app background 34
-    #img-bg
-    img(src=require("./img/small-image.png"))
-    img(src=require("./img/github.svg") width=100 height=100) 
-    img(src=require("./img/svg-big-img.svg") width=500) 
-    img(src=require("./img/big-image.png") width="100%")
+    #app
+        #inner-app
+            img#logo(src=require('./img/smashy-design.svg') alt="Smashy Design Logo")
+            h1 Smashy Starter - Webpack for template building
+            h3 For more info and instructions please visit our <a href="https://github.com/smashydesign/starter">repository.</a>
+            h6#time

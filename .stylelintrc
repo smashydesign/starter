@@ -1,8 +1,8 @@
 {
     "extends": "stylelint-config-standard",
     "rules": {
-        "indentation": 2,
-        "string-quotes": "double",
+        "indentation": 4,
+        "string-quotes": "single",
         "no-duplicate-selectors": true,
         "color-hex-length": "short",
         "selector-combinator-space-after": "always",

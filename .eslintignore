@@ -1,2 +1,6 @@
 /webpack.dev.js
 /webpack.prod.js
+postcss.config.js
+node_modules/*
+src/js/vendor/*.js
+/config
